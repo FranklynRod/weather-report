@@ -21,7 +21,7 @@ const getLocation = () => {
   // location = state.city
   // from axios documentation, the get request has a PATH and then optional params to get city, more info: https://github.com/axios/axios
   axios.get('http://localhost:5000/location', {
-      params: {q: state.city}
+      params: {query: state.city}
   }) 
   .then(response => {
   // per axios documentation:`data` is the response that was provided by the server \\data: {}
@@ -33,7 +33,7 @@ const getLocation = () => {
   .catch(error =>{
       console.log("Location error: ", error.response.data)
   });
-`1`
+
 }
 
 // function to get input city's weather based on its lat and long - called from getLocation
@@ -66,27 +66,26 @@ const decreaseTemperature = ()=>{
   changeTempColorAndLandscape()
 }
 //function to change sky
-const changeSkyDisplay = ()=>{
-  const skyInput = document.getElementById('sky-select').value;
-
-  const currentSkyDisplay = document.getElementById('sky_image');
-  let skyDisplay =	'🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
-
-  if (input === 'Sunny'){
-    skyDisplay =	'☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
-  }else if (input === 'Cloudy'){
-    skyDisplay =	'☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
-  }else if (input === 'Rainy'){
-    skyDisplay =	'🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
-  }else if (input === 'Snowy'){
-    skyDisplay =	'🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
-  };
-  currentSkyDisplay.textContent = skyDisplay;
-};
+const changeSkyDisplay = () => {
+  //getting selected sky image
+const input = document.getElementById('sky_select').value;
 
 // selecting the sky_image element object
+const currentSky = document.getElementById('sky_image');
+let skyDisplay =	'🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
 
-
+if (input === 'Sunny'){
+  skyDisplay =	'☁️ ☁️ ☁️ ☀️ ☁️ ☁️';
+}else if (input === 'Cloudy'){
+  skyDisplay =	'☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️';
+}else if (input === 'Rainy'){
+  skyDisplay =	'🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
+}else if (input === 'Snowy'){
+  skyDisplay =	'🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨';
+};
+//   skyImage.textContent = skyDisplay;
+currentSky.textContent = skyDisplay;
+};
 
 //function to change the landscape and temperature value color
 const changeTempColorAndLandscape = () => {
@@ -94,36 +93,70 @@ const changeTempColorAndLandscape = () => {
     let temperature_color = 'yellow';
     let landscape =	"🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
 
-    if (temperature_value > 80) {
+    if (temperature_value > 85) {
         landscape = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
         temperature_color = 'red'
-    } else if (temperature_value >= 70) {
+    } else if (temperature_value >= 65) {
         landscape = "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷";
         temperature_color = 'orange'
-    } else if (temperature_value >= 60) {
+    } else if (temperature_value >= 55) {
         landscape = "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
         temperature_color = 'yellow'
-    } else if (temperature_value >= 50) {
+    } else if (temperature_value >= 45) {
         landscape = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
         temperature_color = 'green'
     } else {
-        landscape = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
+        landscape = "🌲🌲⛄️🌲⛄️🌲🌲🌲⛄️🌲";
         temperature_color = 'teal'
     }
 
+    // First, get element we want to alter
+    // Next, set the textcontent (the string that represents the image) of that element
+    const currentLandscape = document.getElementById('landscape-image');
+    currentLandscape.textContent = landscape;
+    // First, get element we want to alter
+    // Change the classname according to the color of the range
+    // Next, set the textcontent (the value literal) of that element, to be the value of the integer in current state casted to a string
+    const tempValue = document.getElementById('temperature-value');
+    tempValue.className = temperature_color;
+    tempValue.textContent = String(state.temperature);
 }
+
 //function to update City Name
 const updateCityName = ()=>{
-
-  
+  const chosenCityName = document.getElementById('city-name').value;
+  const titleCityName = document.getElementById('city');
+  state.city = chosenCityName;
+  titleCityName.textContent = state.city;
 };
 
 //function to bring back default placeholder
 const resetCityName = ()=>{
-  
+  const defaultCityName = document.getElementById('city-name');
+  defaultCityName.value = 'McLean';
+  updateCityName();
 };
 
 //register event handlers
 const registerEventHandlers = () => {
+  const increaseTemp = document.getElementById('temp-up-button')
+  increaseTemp.addEventListener('click',increaseTemperature)
 
+  const decreaseTemp = document.getElementById('temp-down-button');
+  decreaseTemp.addEventListener('click', decreaseTemperature);
+
+  const updateCity = document.getElementById('city-name');
+  updateCity.addEventListener('change', updateCityName);
+
+  const resetCity = document.getElementById('city-name-reset-button');
+  resetCity.addEventListener('click', resetCityName);
+
+  const changeSky = document.getElementById('sky-select');
+  changeSky.addEventListener('change', changeSkyDisplay);
+
+  const changeTempLandscape = document.getElementById('environment_elements');
+  changeTempLandscape.addEventListener('change',changeTempColorAndLandscape)
+
+  const tempAtMoment = document.getElementById('temperature-btn');
+  tempAtMoment.addEventListener('click',getLocation);
 }
