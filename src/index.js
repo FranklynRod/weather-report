@@ -9,9 +9,8 @@ const state = {
   latitude: null,
   longitude: null
 
-
 }
-// would love to not need this and change the units in params instead
+
 const convertKtoF = (temperature) => {
   return (temperature - 273.15) * (9 / 5) + 32;
 };
@@ -46,7 +45,7 @@ const getWeather = () => {
   // check out how a response looks: https://openweathermap.org/current#geo or the replit I shared
   const weather = response.data.main.temp
   // couldn't get adding a unit (fahrenheit) param to work for temperature, there is an option in the docs
-  state.temp = Math.round(convertKtoF(weather));
+  state.temperature = Math.round(convertKtoF(weather));
   changeTempColorAndLandscape();
   })
   .catch(error =>{
@@ -68,10 +67,10 @@ const decreaseTemperature = ()=>{
 //function to change sky
 const changeSkyDisplay = () => {
   //getting selected sky image
-const input = document.getElementById('sky_select').value;
+const input = document.getElementById('sky-select').value;
 
 // selecting the sky_image element object
-const currentSky = document.getElementById('sky_image');
+const currentSky = document.getElementById('sky-image');
 let skyDisplay =	'🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧';
 
 if (input === 'Sunny'){
@@ -89,7 +88,7 @@ currentSky.textContent = skyDisplay;
 
 //function to change the landscape and temperature value color
 const changeTempColorAndLandscape = () => {
-    let temperature_value = state.temp;
+    let temperature_value = state.temperature;
     let temperature_color = 'yellow';
     let landscape =	"🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
 
@@ -124,7 +123,7 @@ const changeTempColorAndLandscape = () => {
 
 //function to update City Name
 const updateCityName = ()=>{
-  const chosenCityName = document.getElementById('city-name').value;
+  const chosenCityName = document.getElementById('city-name-input').value;
   const titleCityName = document.getElementById('city');
   state.city = chosenCityName;
   titleCityName.textContent = state.city;
@@ -132,7 +131,7 @@ const updateCityName = ()=>{
 
 //function to bring back default placeholder
 const resetCityName = ()=>{
-  const defaultCityName = document.getElementById('city-name');
+  const defaultCityName = document.getElementById('city-name-input');
   defaultCityName.value = 'McLean';
   updateCityName();
 };
@@ -145,8 +144,8 @@ const registerEventHandlers = () => {
   const decreaseTemp = document.getElementById('temp-down-button');
   decreaseTemp.addEventListener('click', decreaseTemperature);
 
-  const updateCity = document.getElementById('city-name');
-  updateCity.addEventListener('change', updateCityName);
+  const updateCity = document.getElementById('city-name-input');
+  updateCity.addEventListener('input', updateCityName);
 
   const resetCity = document.getElementById('city-name-reset-button');
   resetCity.addEventListener('click', resetCityName);
@@ -154,9 +153,11 @@ const registerEventHandlers = () => {
   const changeSky = document.getElementById('sky-select');
   changeSky.addEventListener('change', changeSkyDisplay);
 
-  const changeTempLandscape = document.getElementById('environment_elements');
-  changeTempLandscape.addEventListener('change',changeTempColorAndLandscape)
+  // const changeTempLandscape = document.getElementById('environment_elements');
+  // changeTempLandscape.addEventListener('change',changeTempColorAndLandscape)
 
   const tempAtMoment = document.getElementById('temperature-btn');
   tempAtMoment.addEventListener('click',getLocation);
 }
+// wait for DOM to load before the events
+document.addEventListener('DOMContentLoaded', registerEventHandlers);

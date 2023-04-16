@@ -32,11 +32,12 @@
                 <button id="temperature-btn">
                  Temperature at the Moment in °F
                 </button> 
-                <button id="temp-up-button" >⬆️</button>
-                <p>65</p>
-                <button id="temp-down-button" >⬇️</button>
-               
-
+                <div class="temperature-display">
+                    <button id="temp-up-button" >⬆️</button>
+                    <p id="temperature-value">65</p>
+                    <button id="temp-down-button" >⬇️</button>
+                </div>
+    
         </section>
         </div>
 
@@ -51,8 +52,8 @@
         </section>
         <section class="city-name-section">
             <h2>City Name</h2>
-            <input type="text" id="city-name" value="McLean"></input>
-            <button class="city-name-reset-button">Reset</button>
+            <input type="text" id="city-name-input" value="McLean"></input>
+            <button id="city-name-reset-button">Reset</button>
         </section>
 
     </main>
