@@ -10,7 +10,7 @@
 <body>
     <header id="'header">
         <h1>Weather Report</h1>
-    <div class="city-header">
+    <div id="city-header">
     <h2 class="city-header">City of 
         <span id="city">McLean</span>
     </h2>
@@ -45,16 +45,18 @@
         
 
         <section id="sky-area">
-            <h2>Sky</h2>
+            <h2 id="sky-heading">Sky</h2>
+            <div id="sky-area-center">
             <select id="sky-select">
                 <option>Sunny</option>
                 <option>Cloudy</option>
                 <option>Rainy</option>
                 <option>Snowy</option>
             </select>
+        </div>
         </section>
         <section class="city-name-section">
-            <h2>City Name</h2>
+            <h2 id="city-name-heading">City Name</h2>
             <input type="text" id="city-name-input" value="McLean"></input>
             <button id="city-name-reset-button">Reset</button>
         </section>
