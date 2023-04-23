@@ -45,7 +45,8 @@ const getWeather = () => {
   // check out how a response looks: https://openweathermap.org/current#geo or the replit I shared
   const weather = response.data.main.temp
   // couldn't get adding a unit (fahrenheit) param to work for temperature, there is an option in the docs
-  state.temperature = Math.round(convertKtoF(weather));
+  const convertKtoF = (weather - 273.15) * (9 / 5) + 32
+  state.temperature = Math.round(convertKtoF);
   changeTempColorAndLandscape();
   })
   .catch(error =>{
@@ -94,19 +95,24 @@ const changeTempColorAndLandscape = () => {
 
     if (temperature_value > 85) {
         landscape = "🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂";
-        temperature_color = 'red'
+        temperature_color = 'red';
+        theme.href = 'styles/red.css'
     } else if (temperature_value >= 65) {
         landscape = "🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷";
-        temperature_color = 'orange'
+        temperature_color = 'orange';
+        theme.href = 'styles/orange.css'
     } else if (temperature_value >= 55) {
         landscape = "🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃";
         temperature_color = 'yellow'
+        theme.href = 'styles/yellow.css'
     } else if (temperature_value >= 45) {
         landscape = "🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲";
         temperature_color = 'green'
+        theme.href = 'styles/green.css'
     } else {
         landscape = "🌲🌲⛄️🌲⛄️🌲🌲🌲⛄️🌲";
         temperature_color = 'teal'
+        theme.href = 'styles/teal.css'
     }
 
     // First, get element we want to alter

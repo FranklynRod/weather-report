@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/index.css" rel="stylesheet" id="theme">
     <title>Weather Report</title>
 </head>
 <body>
-    <header>
+    <header id="'header">
         <h1>Weather Report</h1>
-    <div class="city-header">
-    <h2>City of 
+    <div id="city-header">
+    <h2 class="city-header">City of 
         <span id="city">McLean</span>
     </h2>
 </div>
 </header>
-    <main>
+   
+        <div class="main-box">
         <section class="environment-section">
             <h2>Environment</h2>
             <div class="environment_elements">
@@ -24,9 +26,10 @@
             </div>
 
         </section>
-       
+
+        <main>
         <div class="temperature-box">
-        <section class="temperature-section">
+        <section class="temperature-section" >
             <h2>Temperature</h2>
             <div class="temperature-elements">
                 <button id="temperature-btn">
@@ -39,24 +42,27 @@
                 </div>
     
         </section>
-        </div>
+        
 
-        <section>
-            <h2>Sky</h2>
+        <section id="sky-area">
+            <h2 id="sky-heading">Sky</h2>
+            <div id="sky-area-center">
             <select id="sky-select">
                 <option>Sunny</option>
                 <option>Cloudy</option>
                 <option>Rainy</option>
                 <option>Snowy</option>
             </select>
+        </div>
         </section>
         <section class="city-name-section">
-            <h2>City Name</h2>
+            <h2 id="city-name-heading">City Name</h2>
             <input type="text" id="city-name-input" value="McLean"></input>
             <button id="city-name-reset-button">Reset</button>
         </section>
-
+    </div>
     </main>
+
     <script src="src/index.js"></script>
     <script src="./node_modules/axios/dist/axios.min.js"></script>  
 </body>
