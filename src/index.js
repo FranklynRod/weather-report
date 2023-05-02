@@ -8,12 +8,13 @@ const state = {
   temperature : 65,
   latitude: null,
   longitude: null
+  //date
 
 }
 
-const convertKtoF = (temperature) => {
-  return (temperature - 273.15) * (9 / 5) + 32;
-};
+// const convertKtoF = (temperature) => {
+//   return (temperature - 273.15) * (9 / 5) + 32;
+// };
 
 // function to get input city's lat and long for location
 const getLocation = () => {
@@ -42,9 +43,9 @@ const getWeather = () => {
       params: {lat: state.latitude, lon: state.longitude}
   }) 
   .then(response => {
-  // check out how a response looks: https://openweathermap.org/current#geo or the replit I shared
+
   const weather = response.data.main.temp
-  // couldn't get adding a unit (fahrenheit) param to work for temperature, there is an option in the docs
+
   const convertKtoF = (weather - 273.15) * (9 / 5) + 32
   state.temperature = Math.round(convertKtoF);
   changeTempColorAndLandscape();
